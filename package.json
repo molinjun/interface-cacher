@@ -20,7 +20,7 @@
     "ioredis"
   ],
   "author": "dennis.ge",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/gedennis/interface-cacher/issues"
   },
