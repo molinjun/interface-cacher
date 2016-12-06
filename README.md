@@ -1,4 +1,4 @@
 # interface-cacher
 [![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.com/package/interface-cacher)
-[![Build Status](https://api.travis-ci.org/gedennis/interface-cacher.svg?branch=master&name=dennis)](https://travis-ci.org/gedennis/interface-cacher)
+[![Build Status](https://api.travis-ci.org/gedennis/interface-cacher.svg?branch=master&name=dennis)](https://travis-ci.org/gedennis/interface-cacher)  
 A simple interface cacher based on ioredis
