@@ -1,0 +1,42 @@
+{
+  "name": "interface-cacher",
+  "version": "0.0.1",
+  "description": "A simple interface cacher based on ioredis",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "ava -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gedennis/interface-cacher.git"
+  },
+  "keywords": [
+    "cacher",
+    "interface",
+    "redis",
+    "ioredis"
+  ],
+  "author": "dennis.ge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gedennis/interface-cacher/issues"
+  },
+  "homepage": "https://github.com/gedennis/interface-cacher#readme",
+  "dependencies": {
+    "ioredis": "^2.4.2",
+    "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "bluebird": "^3.4.6"
+  },
+  "ava": {
+    "files": [ "test/**/*.test.js" ],
+    "concurrency": 25,
+    "serial": true,
+    "failFast": false
+  }
+}
