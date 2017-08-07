@@ -32,9 +32,8 @@ A simple interface cacher based on ioredis
 **Examples**
 
 ```javascript
-:
 说明：以给getShops接口加缓存为例
-要点： executor为一个返回bluebird 的promise
+要点：executor为一个返回bluebird 的promise
 getShops接口如下：
 const getShops = (type) => {
   if (type === 0) {
@@ -53,12 +52,12 @@ const payload = {
 };
 
 cache.get(payload)
-.then((data) => {
-  // process the data
-}
-.catch((err) => {
-  / handle the exception when encounter with error
-);
+ .then((data) => {
+   // process the data
+ })
+ .catch((err) => {
+   // handle the exception when encounter with error
+ });
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 缓存中数据(击中) 或executor返回数据(未击中)
