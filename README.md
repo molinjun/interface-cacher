@@ -14,7 +14,7 @@ A simple interface cacher based on ioredis
 **Parameters**
 
 -   `payload`  
-    -   `payload.redis` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 用于redis的连接
+    -   `payload.redis` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 用于redis的连接
     -   `payload.prefix` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** key的默认前缀
     -   `payload.expire` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** key的有效期，单位s
 
@@ -24,9 +24,41 @@ A simple interface cacher based on ioredis
 
 **Parameters**
 
--   `payload` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `payload` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `payload.key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 要查找的key
     -   `payload.executor` **[promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 如果未击中，要执行的操作
     -   `payload.expire` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 失效时间, 单位s
 
-Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 缓存中数据(击中) 或executor返回数据(未击中)
+**Examples**
+
+```javascript
+:
+说明：以给getShops接口加缓存为例
+要点： executor为一个返回bluebird 的promise
+getShops接口如下：
+const getShops = (type) => {
+  if (type === 0) {
+    return Promise.reject(new Error('bad params'));
+  }
+  return Promise.resolve(['shop01', 'shop02']);
+};
+
+使用方式：
+const cache = require('path-to-cache');
+
+const payload = {
+  key: 'getShops',
+  executor: getShops.bind(null, 1),
+  expire: 100
+};
+
+cache.get(payload)
+.then((data) => {
+  // process the data
+}
+.catch((err) => {
+  / handle the exception when encounter with error
+);
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 缓存中数据(击中) 或executor返回数据(未击中)
