@@ -30,10 +30,10 @@
     "lodash": "^4.17.2"
   },
   "devDependencies": {
-    "ioredis": "^2.4.2",
     "ava": "^0.17.0",
     "bluebird": "^3.4.6",
-    "documentation": "^5.1.1"
+    "documentation": "^5.1.1",
+    "ioredis": "^3.1.4"
   },
   "ava": {
     "files": [
