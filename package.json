@@ -1,6 +1,6 @@
 {
   "name": "interface-cacher",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A simple interface cacher based on ioredis",
   "main": "index.js",
   "directories": {
