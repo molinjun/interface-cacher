@@ -46,7 +46,9 @@ const getShops = (type) => {
 };
 
 使用方式：
-const cache = require('interface-cacher');
+const Cacher = require('interface-cacher');
+
+const cacher = new Cacher();
 
 const payload = {
   key: 'getShops',
