@@ -15,6 +15,9 @@ A simple interface cacher based on ioredis
 
 -   `payload`  
     -   `payload.redis` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 用于redis的连接
+        -   `payload.redis.host` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** host ip of redis (optional, default `localhost`)
+        -   `payload.redis.port` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** port of redis (optional, default `6379`)
+        -   `payload.redis.db` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** cache db of redis (optional, default `12`)
     -   `payload.prefix` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** key的默认前缀
     -   `payload.expire` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** key的有效期，单位s
 
