@@ -26,7 +26,7 @@ A simple interface cacher based on ioredis
 
 -   `payload` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `payload.key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 要查找的key
-    -   `payload.executor` **[promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 如果未击中，要执行的操作
+    -   `payload.executor` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 如果未击中，要执行的方法
     -   `payload.expire` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 失效时间, 单位s
 
 **Examples**
