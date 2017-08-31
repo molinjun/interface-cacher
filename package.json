@@ -2,13 +2,14 @@
   "name": "interface-cacher",
   "version": "0.2.0",
   "description": "A simple interface cacher based on ioredis",
-  "main": "index.js",
+  "main": "./lib/cache.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "doc": "documentation readme index.js --section=JSDoc",
-    "test": "ava -v",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "nyc ava -v",
     "release": "standard-version"
   },
   "repository": {
@@ -34,9 +35,11 @@
   "devDependencies": {
     "ava": "^0.17.0",
     "bluebird": "^3.4.6",
+    "coveralls": "^2.13.1",
     "documentation": "^5.1.1",
     "ioredis": "^3.1.4",
     "lodash": "^4.17.4",
+    "nyc": "^11.1.0",
     "standard-version": "^4.2.0"
   },
   "ava": {
