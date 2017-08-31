@@ -116,3 +116,14 @@ test('cache: should not cache when return an undefined by executor', (t) => {
     })
     .then(data => t.is(data, null));
 });
+
+test('cache: should remove the key in cache', (t) => {
+  const key = 'getShopes';
+  return client.set(KEY, '["shop01"]')
+    .then(() => cacher.delete(key))
+    .then((data) => {
+      t.is(data, 1);
+      return client.get(KEY);
+    })
+    .then(data => t.is(data, null));
+});
