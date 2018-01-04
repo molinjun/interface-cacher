@@ -33,6 +33,7 @@
     "lodash.isundefined": "^3.0.1"
   },
   "devDependencies": {
+    "@types/ioredis": "^3.2.5",
     "ava": "^0.24.0",
     "bluebird": "^3.5.1",
     "coveralls": "^3.0.0",
