@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
-const test = require('ava').test;
+const { test } = require('ava');
 const Redis = require('ioredis');
 
 const Cacher = require('../lib/cache');
@@ -9,10 +9,10 @@ const opt = {
   redis: {
     host: '127.0.0.1',
     port: '6379',
-    db: '12'
+    db: '12',
   },
   prefix: 'TEST_',
-  expire: 5
+  expire: 5,
 };
 
 const client = new Redis(opt.redis);
@@ -28,30 +28,66 @@ const getShopes = (type) => {
     return Promise.resolve(undefined);
   }
 
+  if (type === 3) {
+    return Promise.resolve('ding');
+  }
+
   return Promise.resolve(['shop01', 'shop02']);
 };
 
 test.beforeEach(() => client.flushall());
 
+test('cache: should support raw:fasel', (t) => {
+  const payload = {
+    key: 'getShopes',
+    executor: getShopes.bind(null, 3),
+    raw: false,
+  };
+  return cacher
+    .get(payload)
+    .then((data) => {
+      t.is(data, 'ding');
+      return client.get(KEY);
+    })
+    .then(data => t.is(data, '"ding"'));
+});
+
+test('cache: should support raw param with data<string>', (t) => {
+  const payload = {
+    key: 'getShopes',
+    executor: getShopes.bind(null, 3),
+    raw: true,
+  };
+  return cacher
+    .get(payload)
+    .then((data) => {
+      t.is(data, 'ding');
+      return client.get(KEY);
+    })
+    .then(data => t.is(data, 'ding'));
+});
+
 test('cache: should cache results in redis', (t) => {
   const payload = {
     key: 'getShopes',
-    executor: getShopes.bind(null, 1)
+    executor: getShopes.bind(null, 1),
   };
-  return cacher.get(payload)
+  return cacher
+    .get(payload)
     .then((data) => {
-      t.deepEqual(data, ["shop01", "shop02"]);
+      t.deepEqual(data, ['shop01', 'shop02']);
       return client.get(KEY);
     })
-    .then(data => t.is(data, "[\"shop01\",\"shop02\"]"));
+    .then(data => t.is(data, '["shop01","shop02"]'));
 });
 
 test('cache: should not cache when executor reject', (t) => {
   const payload = {
     key: 'getShopes',
-    executor: getShopes.bind(null, 0)
+    executor: getShopes.bind(null, 0),
   };
-  return cacher.get(payload)
+  return cacher
+    .get(payload)
     .catch((err) => {
       t.is(err.message, 'bad params');
       return client.get(KEY);
@@ -63,9 +99,10 @@ test('cache: should return cache data when hit', (t) => {
   const payload = {
     key: 'getShopes',
     executor: getShopes.bind(null, 1),
-    expire: 100
+    expire: 100,
   };
-  return client.set(KEY, '["shop01"]')
+  return client
+    .set(KEY, '["shop01"]')
     .then(() => cacher.get(payload))
     .then((data) => {
       t.true(_.isArray(data));
@@ -76,29 +113,31 @@ test('cache: should return cache data when hit', (t) => {
 test('cache: should recache when cache is outdated', (t) => {
   const payload = {
     key: 'getShopes',
-    executor: getShopes.bind(null, 1)
+    executor: getShopes.bind(null, 1),
   };
-  return client.set(KEY, '["shop01"]', 'px', 10)
+  return client
+    .set(KEY, '["shop01"]', 'px', 10)
     .delay(11)
     .then(() => cacher.get(payload))
     .then((data) => {
       t.true(_.isArray(data));
-      t.deepEqual(data, ["shop01", "shop02"]);
+      t.deepEqual(data, ['shop01', 'shop02']);
       return client.get(KEY);
     })
-    .then(data => t.is(data, "[\"shop01\",\"shop02\"]"));
+    .then(data => t.is(data, '["shop01","shop02"]'));
 });
 
 test('cache: should use default expire when expire is less than 0', (t) => {
   const payload = {
     key: 'getShopes',
     executor: getShopes.bind(null, 1),
-    expire: -1
+    expire: -1,
   };
-  return cacher.get(payload)
+  return cacher
+    .get(payload)
     .then((data) => {
       t.true(_.isArray(data));
-      t.deepEqual(data, ["shop01", "shop02"]);
+      t.deepEqual(data, ['shop01', 'shop02']);
       return client.ttl(KEY);
     })
     .then(ttl => t.true(ttl > 0 && ttl <= 5));
@@ -107,9 +146,10 @@ test('cache: should use default expire when expire is less than 0', (t) => {
 test('cache: should not cache when return an undefined by executor', (t) => {
   const payload = {
     key: 'getShopes',
-    executor: getShopes.bind(null, 2)
+    executor: getShopes.bind(null, 2),
   };
-  return cacher.get(payload)
+  return cacher
+    .get(payload)
     .then((data) => {
       t.is(data, undefined);
       return client.get(KEY);
@@ -119,7 +159,8 @@ test('cache: should not cache when return an undefined by executor', (t) => {
 
 test('cache: should remove the key in cache', (t) => {
   const key = 'getShopes';
-  return client.set(KEY, '["shop01"]')
+  return client
+    .set(KEY, '["shop01"]')
     .then(() => cacher.delete(key))
     .then((data) => {
       t.is(data, 1);
