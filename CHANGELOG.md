@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.1"></a>
+## [0.5.1](https://github.com/gedennis/interface-cacher/compare/v0.5.0...v0.5.1) (2018-11-21)
+
+
+### Bug Fixes
+
+* **promise:** use bluebird instead of native promise ([62b53b9](https://github.com/gedennis/interface-cacher/commit/62b53b9))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/gedennis/interface-cacher/compare/v0.4.0...v0.5.0) (2018-11-20)
 
